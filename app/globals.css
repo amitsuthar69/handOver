@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .dark {
+    @apply bg-[#1e1e1e];
+  }
+  .semi-dark {
+    @apply bg-[#2b2b2b];
+  }
+}
