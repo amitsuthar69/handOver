@@ -1,6 +1,6 @@
 import HandOverForm from "@/app/ui/dashboard/HandOverForm";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/utils/authOptions";
 import { redirect } from "next/navigation";
 
 export default async function Exchnage() {
@@ -16,4 +16,3 @@ export default async function Exchnage() {
     </div>
   );
 }
-
