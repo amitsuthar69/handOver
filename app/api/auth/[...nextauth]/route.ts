@@ -3,7 +3,7 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
 // Auth providers GitHub and Google
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     Github({
       clientId: process.env.GITHUB_CLIENT_ID as string,
