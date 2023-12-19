@@ -7,7 +7,7 @@ export default async function Exchnage() {
   // route protection
   const session = await getServerSession(authOptions);
   if (!session) {
-    redirect("/");
+    redirect("/signin");
   }
   // console.log(session); //verifying session
   return (

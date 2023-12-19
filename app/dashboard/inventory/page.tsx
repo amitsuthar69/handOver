@@ -6,7 +6,7 @@ export default async function Inventory() {
   // route protection
   const session = await getServerSession(authOptions);
   if (!session) {
-    redirect("/");
+    redirect("/signin");
   }
   return <div>User Inventory</div>;
 }
