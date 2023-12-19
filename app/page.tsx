@@ -1,7 +1,12 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      handOver
-    </main>
+    <div className="flex flex-col gap-2">
+      Login Page
+      <Link className="underline" href={`/home/items`}>
+        skip for now {">>"}
+      </Link>
+    </div>
   );
 }
