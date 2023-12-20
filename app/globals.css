@@ -9,4 +9,16 @@
   .semi-dark {
     @apply bg-[#2b2b2b];
   }
+  .edit-btn {
+    @apply bg-purple-700 hover:bg-purple-500 px-1 rounded-md;
+  }
+  .log-out-btn {
+    @apply bg-red-700 hover:bg-red-500 px-1 rounded-md;
+  }
+  .edit-form-input {
+    @apply bg-transparent focus:bg-transparent w-full text-sm outline-none border-b border-gray-50;
+  }
+  .btn-cyan {
+    @apply bg-cyan-700 hover:bg-cyan-500 p-2 rounded-md w-full text-center text-sm;
+  }
 }
