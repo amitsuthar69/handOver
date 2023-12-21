@@ -25,4 +25,7 @@
   .btn-cyan {
     @apply bg-cyan-700 hover:bg-cyan-500 p-2 rounded-md w-full text-center text-sm;
   }
+  .btn-green {
+    @apply bg-green-600 hover:bg-green-500 p-2 rounded-lg w-full text-center text-sm;
+  }
 }
