@@ -2,7 +2,8 @@ import prisma from "@/app/utils/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { description, imageUrl, publicId } = await req.json();
+  const { description, imageUrl, publicId, selectedCategory } =
+    await req.json();
   if (!description) {
     return NextResponse.json(
       { error: "Description is required" },
@@ -17,6 +18,7 @@ export async function POST(req: Request) {
         imageUrl,
         publicId,
         authorEmail,
+        catName: selectedCategory,
       },
     });
     console.log("post created");
@@ -42,4 +44,3 @@ export async function GET() {
     );
   }
 }
-

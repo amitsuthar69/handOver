@@ -1,4 +1,4 @@
-type ItemType = {
+export type ItemType = {
   id: string;
   description: string;
   price?: string;
@@ -8,4 +8,7 @@ type ItemType = {
   createdAt: number;
 };
 
-export default ItemType;
+export type Category = {
+  id: string,
+  catName: string
+}
