@@ -1,4 +1,4 @@
-import ItemType from "@/types/itemType";
+import { ItemType } from "@/types/itemType";
 import Image from "next/image";
 import Link from "next/link";
 

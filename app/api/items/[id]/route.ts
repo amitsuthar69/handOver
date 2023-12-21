@@ -21,12 +21,13 @@ export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
+  // const session = await getServerSession(authOptions);
+  // if (!session) {
+  //   return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  // }
 
-  const { description, imageUrl, price } = await req.json();
+  const { description, imageUrl, price, publicId, selectedCategory } =
+    await req.json();
   const id = params.id;
 
   try {
@@ -36,11 +37,10 @@ export async function PUT(
         description,
         imageUrl,
         price,
+        publicId,
+        catName: selectedCategory,
       },
     });
-    if (price === null || price === undefined) {
-      return NextResponse.json({ error: "Price is required" }, { status: 400 });
-    }
     return NextResponse.json(updatedItem);
   } catch (error) {
     console.log("error updating user: ", error);
