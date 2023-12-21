@@ -12,7 +12,7 @@ export default function MiddleNav() {
           className={`rounded-lg p-2 w-full hover:bg-[#333333] ${
             active ? "" : "bg-[#333333]"
           }`}>
-          HP items
+          Items
         </button>
       </Link>
       <Link href={`/home/wishlist`}>
