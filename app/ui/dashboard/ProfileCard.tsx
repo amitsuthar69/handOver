@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProfileCard() {
+export default function ProfileCard({ username }: any) {
   // current user status : "authenticated" | "loading" | "unauthenticated"
   const { status } = useSession();
   return (
@@ -19,7 +19,7 @@ export default function ProfileCard() {
       </Link>
       <Image src={"/user-placeholder.png"} alt="user" width={70} height={70} />
       <div className="details">
-        <h1 className="username leading-none">username</h1>
+        <h1 className="username leading-none">{username}</h1>
         <h1 className="phone">phone number</h1>
         <div className="btns flex gap-2">
           <Link href={"/dashboard/edit"}>
