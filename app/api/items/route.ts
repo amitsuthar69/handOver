@@ -1,8 +1,10 @@
 import prisma from "@/app/utils/prismadb";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/utils/authOptions";
 
 export async function POST(req: Request) {
-  const { description, imageUrl, publicId, selectedCategory } =
+  const { description, imageUrl, publicId, selectedCategory, price } =
     await req.json();
   if (!description) {
     return NextResponse.json(
@@ -10,7 +12,8 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
-  const authorEmail = "sutharamit707@gmail.com"; // temporary, will change it from session
+  const session = await getServerSession(authOptions);
+  const authorEmail = session?.user?.email as string;
   try {
     const newItem = await prisma.item.create({
       data: {
@@ -19,13 +22,17 @@ export async function POST(req: Request) {
         publicId,
         authorEmail,
         catName: selectedCategory,
+        price,
       },
     });
     console.log("post created");
     return NextResponse.json(newItem);
   } catch (error) {
     console.log("error creating item: ", error);
-    return NextResponse.json({ message: "could not create post" });
+    return NextResponse.json(
+      { message: "could not create post" },
+      { status: 500 }
+    );
   }
 }
 

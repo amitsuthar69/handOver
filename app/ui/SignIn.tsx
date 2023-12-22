@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { signIn } from "next-auth/react";
 
 export default function SignIn() {

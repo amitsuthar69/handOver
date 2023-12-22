@@ -1,5 +1,5 @@
 import { ItemType } from "@/types/itemType";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 
 export default function ItemCard({
@@ -25,10 +25,10 @@ export default function ItemCard({
       </div>
       <div className="details p-2 flex gap-2">
         <div className="detail">
-          <h1 className="font-semibold">{author}</h1>
+          <h1 className="font-semibold">{author.name}</h1>
           <p className="text-xs">{description}</p>
         </div>
-        <div className="price">₹{price}</div>
+        <div className="price text-green-400">₹{price ? price : "0"}</div>
       </div>
       <Link href={"/dashboard/inventory"}>
         <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
