@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import setItems from "@/app/utils/setItems";
 
 export default function HandOverForm() {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState<Category[] | null>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -14,6 +14,8 @@ export default function HandOverForm() {
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
+
+  // console.log(selectedCategory);
 
   const router = useRouter();
 
@@ -58,17 +60,20 @@ export default function HandOverForm() {
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
         <textarea
           onChange={(e) => setDescription(e.target.value)}
-          maxLength={50}
+          maxLength={100}
           minLength={10}
           className="edit-form-input"
           name="description"
-          placeholder="describle your item..."></textarea>
+          placeholder="describle your item... (atleast 10 characters)"></textarea>
         <select
           required
           onChange={handleSelectChange}
           className="bg-transparent outline-none border p-2 rounded"
-          name="what's your mood?"
+          name="sell or exchange?"
           id="cars">
+          <option className="bg-[#1e1e1ec0]" selected disabled hidden>
+            sell or exchange?
+          </option>
           {categories &&
             categories.map((category) => (
               <option
@@ -86,7 +91,7 @@ export default function HandOverForm() {
             className="edit-form-input"
             type="text"
             name="amount"
-            placeholder="what's the price then?"
+            placeholder="what's the price? (if selling)"
           />
         )}
         <input type="file" name="item-img" accept="image/png, image/jpeg" />{" "}

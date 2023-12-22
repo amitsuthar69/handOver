@@ -29,7 +29,10 @@ export async function POST(req: Request) {
     return NextResponse.json(newItem);
   } catch (error) {
     console.log("error creating item: ", error);
-    return NextResponse.json({ message: "could not create post" });
+    return NextResponse.json(
+      { message: "could not create post" },
+      { status: 500 }
+    );
   }
 }
 

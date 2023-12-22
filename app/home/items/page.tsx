@@ -6,13 +6,19 @@ import { ItemType } from "@/types/itemType";
 
 export default function Items() {
   const [item, setItem] = useState<ItemType[] | null>([]);
+
   useEffect(() => {
     const fetchItems = async () => {
-      const items = await getItems();
-      setItem(items);
+      try {
+        const items = await getItems();
+        setItem(items);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
     };
     fetchItems();
   }, []);
+
   return (
     <div className="bg-[#1a1a1ae8] p-4">
       <div className="mt-4 grid grid-cols-1 gap-4">
@@ -31,7 +37,9 @@ export default function Items() {
             />
           ))
         ) : (
-          <div>No items to display</div>
+          <div className="text-gray-50 text-center">
+            Fetching latest Items...
+          </div>
         )}
       </div>
     </div>
