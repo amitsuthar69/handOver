@@ -3,7 +3,8 @@ import { UserType } from "@/types/userType";
 const getUserByEmail = async (email: string): Promise<UserType | null> => {
   try {
     const res = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/edituser/${email}`
+      `${process.env.NEXTAUTH_URL}/api/edituser/${email}`,
+      { cache: "no-store" }
     );
     if (res.ok) {
       const user = await res.json();
