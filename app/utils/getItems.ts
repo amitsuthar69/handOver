@@ -2,7 +2,7 @@ import { ItemType } from "@/types/itemType";
 
 const getItems = async (): Promise<ItemType[] | null> => {
   try {
-    const res = await fetch(`/api/items`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`, {
       cache: "no-store",
     });
 
