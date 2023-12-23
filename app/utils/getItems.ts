@@ -17,3 +17,19 @@ const getItems = async (): Promise<ItemType[] | null> => {
 };
 
 export { getItems };
+
+const getItemsByUser = async (email: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/useritems/${email}`,
+      { cache: "no-store" }
+    );
+    const { items } = await res.json();
+    return items;
+  } catch (error) {
+    console.log("error fetching useritems in frontend : ", error);
+  }
+  return null;
+};
+
+export { getItemsByUser };

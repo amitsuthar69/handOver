@@ -28,4 +28,10 @@
   .btn-green {
     @apply bg-green-600 hover:bg-green-500 p-2 rounded-lg w-full text-center text-sm;
   }
+  .btn-edit {
+    @apply bg-purple-700 hover:bg-purple-500 p-2 rounded-lg w-full text-center text-sm rounded-t-none rounded-r-none rounded-br-none;
+  }
+  .btn-delete {
+    @apply bg-red-700 hover:bg-red-500 p-2 rounded-lg w-full text-center text-sm rounded-t-none rounded-l-none rounded-bl-none;
+  }
 }
