@@ -14,7 +14,7 @@ export default function ItemCard({
 }: ItemType) {
   const mood =
     catName === "sell" ? "purchase this item from" : "exchange this item with";
-  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20a%20user%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you`;
+  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20a%20user%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
   return (
     <div className="text-gray-50 dark shadow-md drop-shadow-md rounded-lg font-mono grid grid-cols-1">
       <div className="thumbnail">
@@ -47,8 +47,9 @@ export default function ItemCard({
         <h1 className="font-semibold">{author.name}</h1>
         <p className="text-xs">{description}</p>
       </div>
+      <p className="text-xs text-gray-50/40 text-center">Created at : ${createdAt}</p>
       <Link href={`${whatsAppLink}`}>
-        <button className="btn-green mt-2 font-semibold rounded-t-none flex gap-2 items-center justify-center">
+        <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
           Talk to the owner
           <Image width={20} height={20} alt="whatsapp" src={"/whatsapp.svg"} />
         </button>
