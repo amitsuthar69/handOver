@@ -25,6 +25,10 @@ export default function EditProfile({ user }: { user: UserType | null }) {
       setError("Name and Phone Number are Mandatory!");
       return;
     }
+    if (phone.length < 10) {
+      setError("Invalid Phone number!");
+      return;
+    }
     // try to separate this data fetching logic from here
     try {
       const res = await fetch(`/api/edituser/${user?.email}`, {

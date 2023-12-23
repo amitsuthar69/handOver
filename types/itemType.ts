@@ -4,6 +4,7 @@ export type ItemType = {
   price?: string;
   author: {
     name: string;
+    phone: string;
   };
   imageUrl: string;
   authorEmail: string;
