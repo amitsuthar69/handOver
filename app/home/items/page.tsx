@@ -6,7 +6,7 @@ import ItemCardSkeleton from "@/app/ui/ItemCardSkeleton";
 export default async function Items() {
   const item = await getItems();
   return (
-    <div className="bg-[#1a1a1ae8] p-4">
+    <div className="bg-[#1a1a1ae8] p-4 min-h-screen">
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {item && item.length > 0 ? (
           item.map((post) => (

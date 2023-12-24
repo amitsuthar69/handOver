@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import setItems from "@/app/utils/setItems";
 
 export default function HandOverForm() {
-  const [active, setActive] = useState(true);
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState<Category[] | null>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -28,7 +27,6 @@ export default function HandOverForm() {
   }, []);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setActive((prev) => !prev);
     setSelectedCategory(e.target.value);
   };
 
@@ -49,6 +47,7 @@ export default function HandOverForm() {
         },
         router
       );
+      router.refresh();
     } catch (error) {
       console.log("Error handling form submit: ", error);
     }
@@ -84,7 +83,7 @@ export default function HandOverForm() {
               </option>
             ))}
         </select>
-        {active && (
+        {selectedCategory === "sell" && (
           <input
             required
             onChange={(e) => setPrice(e.target.value)}
@@ -100,7 +99,7 @@ export default function HandOverForm() {
           <div className="text-red-500 text-center font-semibold">{error}</div>
         )}
         <button className="btn-cyan">
-          Open for {active ? "sell" : "Exchange"}
+          Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
         </button>
       </form>
     </div>

@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { updateItems } from "@/app/utils/setItems";
 
 export default function EditItemForm({ item }: { item: ItemType }) {
-  const [active, setActive] = useState(true);
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState<Category[] | null>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -40,16 +39,22 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   ]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setActive((prev) => (item.catName === "sell" ? !prev : prev));
     setSelectedCategory(e.target.value);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!description) {
       setError("Description is required!");
       return;
     }
+
+    if (selectedCategory === "sell" && price === "0") {
+      setError("Please set valid price or else Exchange it!");
+      return;
+    }
+
     try {
       await updateItems(
         {
@@ -96,10 +101,10 @@ export default function EditItemForm({ item }: { item: ItemType }) {
               </option>
             ))}
         </select>
-        {active && (
+        {selectedCategory === "sell" && (
           <input
             required
-            value={selectedCategory === "sell" ? price : "0"}
+            value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="edit-form-input"
             type="text"

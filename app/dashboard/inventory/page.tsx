@@ -12,7 +12,7 @@ export default async function Inventory() {
     redirect("/signin");
   }
   const email = session.user?.email;
-  let items = [];
+  let items: ItemType[] = [];
 
   if (email) {
     items = await getItemsByUser(email);
@@ -21,8 +21,19 @@ export default async function Inventory() {
   // console.log(items);
 
   return (
-    <div className="bg-[#1a1a1ae8] p-4 font-mono">
-      <h1 className="text-center text-sm text-gray-50/70">Your Items</h1>
+    <div className="bg-[#1a1a1ae8] p-4 font-mono min-h-screen">
+      <h1 className="text-center text-sm text-gray-50/70">
+        {items && items.length > 0 ? (
+          "Your Items"
+        ) : (
+          <div>
+            <p>No Items to display.</p>
+            <p className="text-xs text-gray-50/50">
+              Tip: To create your first item, go to exchange.
+            </p>
+          </div>
+        )}
+      </h1>
       {/* make it "no items" when length 0 */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items &&

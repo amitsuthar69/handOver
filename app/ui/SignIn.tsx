@@ -20,8 +20,14 @@ export default function SignIn() {
           onClick={() => signIn("github")}
           className="flex items-center justify-center p-2 px-4 gap-2 border rounded-full cursor-pointer hover:bg-slate-600/20 transition">
           <Image width={30} height={30} src={`/github.png`} alt="github-icon" />
-          <h1>Sign in with GitHub</h1>
+          <h1 className="text-gray-50/50">Sign in with GitHub</h1> {/* temporarily fainting it */}
         </button>
+        <h1 className="text-xs text-center text-red-300/80 -mt-2">
+          *Github Login is currently unavailable,
+        </h1>
+        <h1 className="text-xs text-center text-red-300/80 -mt-4">
+          please try login with Google!
+        </h1>
         <button
           onClick={() => signIn("google")}
           className="flex items-center justify-center p-2 px-4 gap-2 border rounded-full cursor-pointer hover:bg-slate-600/20 transition">
