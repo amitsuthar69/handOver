@@ -24,3 +24,23 @@ const setItems = async (itemData: ItemData, router: any) => {
 };
 
 export default setItems;
+
+const updateItems = async (itemData: ItemData, router: any, id: string) => {
+  try {
+    const res = await fetch(`/api/items/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(itemData),
+    });
+    if (res.ok) {
+      router.push("/dashboard/inventory");
+      router.refresh();
+    }
+  } catch (error) {
+    console.log("error updating item from frontend: ", error);
+  }
+};
+
+export { updateItems };
