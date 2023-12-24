@@ -1,6 +1,9 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/utils/authOptions";
 import { redirect } from "next/navigation";
+import { getItemsByUser } from "@/app/utils/getItems";
+import ItemCard from "@/app/ui/ItemCard";
+import { ItemType } from "@/types/itemType";
 
 export default async function Inventory() {
   // route protection
@@ -8,5 +11,39 @@ export default async function Inventory() {
   if (!session) {
     redirect("/signin");
   }
-  return <div>User Inventory</div>;
+  const email = session.user?.email;
+  let items = [];
+
+  if (email) {
+    items = await getItemsByUser(email);
+  }
+
+  // console.log(items);
+
+  return (
+    <div className="bg-[#1a1a1ae8] p-4 font-mono">
+      <h1 className="text-center text-sm text-gray-50/70">Your Items</h1>
+      {/* make it "no items" when length 0 */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {items &&
+          items.map((post: ItemType) => (
+            <ItemCard
+              key={post.id}
+              id={post.id}
+              author={
+                post.author
+                  ? { name: post.author.name, phone: post.author.phone }
+                  : { name: session.user?.name as string, phone: "0" }
+              }
+              description={post.description}
+              price={post.price}
+              imageUrl={post.imageUrl}
+              authorEmail={post.authorEmail}
+              createdAt={post.createdAt}
+              catName={post.catName}
+            />
+          ))}
+      </div>
+    </div>
+  );
 }

@@ -7,6 +7,7 @@ export type ItemType = {
     phone: string;
   };
   imageUrl: string;
+  publicId?: string;
   authorEmail: string;
   createdAt: number;
   catName: string;

@@ -13,7 +13,7 @@ export default function ItemCardSkeleton() {
         <p className="bg-gray-600/50 p-2" />
       </div>
       <p className="text-xs text-gray-50/40 skeleton-line-text" />
-      <button className="btn-green rounded-t-none flex items-center justify-center">
+      <button className="bg-gray-500/50 p-2 rounded-lg w-full text-center text-sm rounded-t-none flex items-center justify-center">
         <p className="bg-gray-50/20 w-3/4 animate-pulse p-2" />
       </button>
     </div>
