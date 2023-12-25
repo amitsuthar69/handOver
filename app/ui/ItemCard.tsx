@@ -32,17 +32,15 @@ export default async function ItemCard({
 
   return (
     <div className="text-gray-50 dark shadow-md drop-shadow-md rounded-lg font-mono grid grid-cols-1">
-      <div className="thumbnail bg-gray-950/20 rounded-lg rounded-b-none shadow-md">
+      <div className="thumbnail relative h-48 bg-gray-950/20 rounded-lg rounded-b-none shadow-md">
         <Image
           priority={true}
           placeholder="blur"
           blurDataURL={imageUrl}
-          width={40}
-          height={30}
+          layout="fill"
           src={imageUrl && imageUrl}
           alt="item-image"
-          layout="responsive"
-          className="rounded-lg rounded-b-none"
+          className="rounded-lg rounded-b-none absolute object-cover inset-0"
         />
       </div>
       <div className="flex items-center justify-between">
@@ -52,7 +50,7 @@ export default async function ItemCard({
               ? "bg-red-400/50 border border-red-500"
               : "bg-green-400/50 border border-green-500"
           }`}>
-          {catName}
+          {catName === "sell" ? "sale" : "exchange"}
         </h1>
         <div
           className={`mx-2 ${

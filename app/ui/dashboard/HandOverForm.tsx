@@ -127,13 +127,16 @@ export default function HandOverForm() {
           </div>
           {imageUrl && (
             <Image
-              src={imageUrl}
+              src={imageUrl && imageUrl}
               fill
               className="absolute object-cover inset-0"
               alt={"item-image"}
             />
           )}
         </CldUploadButton>
+        <p className="text-gray-50/50 text-xs -mt-2">
+          *Suggested not to use Potrait images
+        </p>
         {publicId && (
           <button
             onClick={removeImage}
