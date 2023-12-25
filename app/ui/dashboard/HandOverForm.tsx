@@ -1,33 +1,50 @@
 "use client";
-import { Category } from "@/types/itemType";
+
 import React, { useEffect, useState } from "react";
-import { getCategories } from "@/app/utils/getCategoriesForItem";
 import { useRouter } from "next/navigation";
 import setItems from "@/app/utils/setItems";
+import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
+import Image from "next/image";
 
 export default function HandOverForm() {
   const [description, setDescription] = useState("");
-  const [categories, setCategories] = useState<Category[] | null>([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("exchange");
   const [price, setPrice] = useState("0");
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
 
-  // console.log(selectedCategory);
-
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await getCategories();
-      setCategories(categories);
-    };
-    fetchCategories();
-  }, []);
+  const removeImage = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCategory(e.target.value);
+    try {
+      const res = await fetch("/api/removeImage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ publicId }),
+      });
+      if (res.ok) {
+        setImageUrl("");
+        setPublicId("");
+      }
+    } catch (error) {
+      console.log("error in frontend: ", error);
+    }
+  };
+
+  const handleImageUpload = (result: CldUploadWidgetResults) => {
+    const info = result.info as object;
+    if ("secure_url" in info && "public_id" in info) {
+      const url = info.secure_url as string;
+      const public_id = info.public_id as string;
+      setImageUrl(url);
+      setPublicId(public_id);
+      // console.log(result);
+      console.log("url: ", url);
+      // console.log("public_id: ", public_id);
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -66,22 +83,15 @@ export default function HandOverForm() {
           placeholder="describle your item... (atleast 10 characters)"></textarea>
         <select
           required
-          onChange={handleSelectChange}
+          onChange={(e) => setSelectedCategory(e.target.value)}
           className="bg-transparent outline-none border p-2 rounded"
-          name="sell or exchange?"
-          id="cars">
-          <option className="bg-[#1e1e1ec0]" selected disabled hidden>
-            sell or exchange?
+          name="sell or exchange?">
+          <option className="bg-[#1e1e1ec0]" value={"exchange"}>
+            exchange
           </option>
-          {categories &&
-            categories.map((category) => (
-              <option
-                className="bg-[#1e1e1ec0]"
-                key={category.id}
-                value={category.catName}>
-                {category.catName}
-              </option>
-            ))}
+          <option className="bg-[#1e1e1ec0]" value={"sell"}>
+            sell
+          </option>
         </select>
         {selectedCategory === "sell" && (
           <input
@@ -93,12 +103,47 @@ export default function HandOverForm() {
             placeholder="what's the price? (if selling)"
           />
         )}
-        <input type="file" name="item-img" accept="image/png, image/jpeg" />{" "}
-        {/* this file input is temporary, we'll have a better one! */}
+        <CldUploadButton
+          onUpload={handleImageUpload}
+          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+          className={`h-24 md:h-48 -mt-2 border border-slate-100/50 border-dotted grid place-items-center bg-slate-100/30 rounded-md relative ${
+            imageUrl && "pointer-events-none"
+          }`}>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+              />
+            </svg>
+          </div>
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              fill
+              className="absolute object-cover inset-0"
+              alt={"item-image"}
+            />
+          )}
+        </CldUploadButton>
+        {publicId && (
+          <button
+            onClick={removeImage}
+            className="btn-delete w-fit rounded-md ">
+            Delete Image
+          </button>
+        )}
         {error && (
           <div className="text-red-500 text-center font-semibold">{error}</div>
         )}
-        <button className="btn-cyan">
+        <button className="btn-cyan -mt-2">
           Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
         </button>
       </form>
