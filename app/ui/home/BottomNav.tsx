@@ -4,7 +4,7 @@ import { getCategories } from "@/app/utils/getCategories";
 export default async function BottomNav() {
   const categories = await getCategories();
   return (
-    <div className="bg-[#1a1a1aee] flex p-2 gap-2 w-full items-center justify-between font-mono shadow-md text-gray-50">
+    <div className="bg-[#1a1a1aee] sticky top-10 z-10 flex p-2 gap-2 w-full items-center justify-between font-mono shadow-md text-gray-50">
       <input
         type="text"
         placeholder="search..."

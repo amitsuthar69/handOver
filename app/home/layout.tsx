@@ -9,10 +9,12 @@ export default function HomeLayout({
 }) {
   return (
     <div>
-      <TopNav />
+      <div className="fixed w-full z-10 top-0">
+        <TopNav />
+      </div>
       <MiddleNav />
       <BottomNav />
-      {children}
+      <div className="m-auto">{children}</div>
     </div>
   );
 }
