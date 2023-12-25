@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { updateItems } from "@/app/utils/setItems";
 import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function EditItemForm({ item }: { item: ItemType }) {
   const [description, setDescription] = useState("");
@@ -14,7 +15,6 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   const [price, setPrice] = useState("0");
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -78,13 +78,14 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!description) {
-      setError("Description is required!");
+    if (!description || !imageUrl) {
+      const errorMessage = "Description & Image are necessary";
+      toast.error(errorMessage);
       return;
     }
 
     if (selectedCategory === "sell" && price === "0") {
-      setError("Please set valid price or else Exchange it!");
+      toast.error("Please set a valid price or else Exchange it!");
       return;
     }
 
@@ -98,7 +99,8 @@ export default function EditItemForm({ item }: { item: ItemType }) {
           price,
         },
         router,
-        item.id
+        item.id,
+        toast
       );
     } catch (error) {
       console.log("Error handling form submit: ", error);
@@ -181,9 +183,6 @@ export default function EditItemForm({ item }: { item: ItemType }) {
             className="btn-delete w-fit rounded-md ">
             Delete Image
           </button>
-        )}
-        {error && (
-          <div className="text-red-500 text-center font-semibold">{error}</div>
         )}
         <button className="btn-cyan">
           {selectedCategory === "sell" ? "sell" : "Exchange"} it!

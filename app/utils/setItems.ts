@@ -6,7 +6,7 @@ interface ItemData {
   imageUrl: string;
 }
 
-const setItems = async (itemData: ItemData, router: any) => {
+const setItems = async (itemData: ItemData, router: any, toast: any) => {
   try {
     const res = await fetch(`/api/items`, {
       method: "POST",
@@ -17,6 +17,10 @@ const setItems = async (itemData: ItemData, router: any) => {
     });
     if (res.ok) {
       router.push("/dashboard/inventory");
+      router.refresh();
+      toast.success("Post created");
+    } else {
+      toast.error("Something went wrong :(");
     }
   } catch (error) {
     console.log("error creating item from frontend: ", error);
@@ -25,7 +29,12 @@ const setItems = async (itemData: ItemData, router: any) => {
 
 export default setItems;
 
-const updateItems = async (itemData: ItemData, router: any, id: string) => {
+const updateItems = async (
+  itemData: ItemData,
+  router: any,
+  id: string,
+  toast: any
+) => {
   try {
     const res = await fetch(`/api/items/${id}`, {
       method: "PUT",
@@ -37,6 +46,7 @@ const updateItems = async (itemData: ItemData, router: any, id: string) => {
     if (res.ok) {
       router.push("/dashboard/inventory");
       router.refresh();
+      toast.success("Post updated");
     }
   } catch (error) {
     console.log("error updating item from frontend: ", error);

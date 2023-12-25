@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { deleteItem } from "../utils/deleteItem";
+import toast from "react-hot-toast";
 
 export default function EditDeleteButton({ id }: { id: string }) {
   const router = useRouter();
@@ -15,9 +16,11 @@ export default function EditDeleteButton({ id }: { id: string }) {
           const item = await res.json();
           const { publicId } = item;
           await deleteImage(publicId);
+          toast.success("Item Deleted!");
           router.refresh();
         }
       } catch (error) {
+        toast.error("Something went wrong :(");
         console.log("Error deleting post in frontend: ", error);
       }
     }
