@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import setItems from "@/app/utils/setItems";
 import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function HandOverForm() {
   const [description, setDescription] = useState("");
@@ -12,7 +13,6 @@ export default function HandOverForm() {
   const [price, setPrice] = useState("0");
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -49,8 +49,9 @@ export default function HandOverForm() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!description) {
-      setError("Description is required!");
+    if (!description || !imageUrl) {
+      const errorMessage = "Description & Image are necessary";
+      toast.error(errorMessage);
       return;
     }
     try {
@@ -62,9 +63,9 @@ export default function HandOverForm() {
           price,
           imageUrl,
         },
-        router
+        router,
+        toast
       );
-      router.refresh();
     } catch (error) {
       console.log("Error handling form submit: ", error);
     }
@@ -139,9 +140,6 @@ export default function HandOverForm() {
             className="btn-delete w-fit rounded-md ">
             Delete Image
           </button>
-        )}
-        {error && (
-          <div className="text-red-500 text-center font-semibold">{error}</div>
         )}
         <button className="btn-cyan -mt-2">
           Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
