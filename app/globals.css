@@ -34,4 +34,7 @@
   .btn-delete {
     @apply bg-red-700 hover:bg-red-500 p-2 rounded-lg w-full text-center text-sm rounded-t-none rounded-l-none rounded-bl-none;
   }
+  .links {
+    @apply text-blue-600 underline;
+  }
 }

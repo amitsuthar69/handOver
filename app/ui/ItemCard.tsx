@@ -15,14 +15,13 @@ export default async function ItemCard({
   createdAt,
   catName,
 }: ItemType) {
-
   const session = await getServerSession(authOptions);
 
   const mood =
     catName === "sell" ? "purchase this item from" : "exchange this item with";
-  
+
   let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20a%20user%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
-  
+
   const dateObjbect = new Date(createdAt);
   const options: Intl.DateTimeFormatOptions = {
     month: "short",
@@ -30,20 +29,18 @@ export default async function ItemCard({
     year: "numeric",
   };
   const formattedDate = dateObjbect.toLocaleDateString("en-US", options);
-  
+
   return (
     <div className="text-gray-50 dark shadow-md drop-shadow-md rounded-lg font-mono grid grid-cols-1">
       <div className="thumbnail bg-gray-950/20 rounded-lg rounded-b-none shadow-md">
         <Image
           priority={true}
+          placeholder="blur"
+          blurDataURL={imageUrl}
           width={40}
           height={30}
-          src={
-            imageUrl && imageUrl.length > 0
-              ? imageUrl
-              : "/item-placeholder-image.webp"
-          }
-          alt="thumbnail"
+          src={imageUrl && imageUrl}
+          alt="item-image"
           layout="responsive"
           className="rounded-lg rounded-b-none"
         />
