@@ -17,7 +17,7 @@ export default function MiddleNav() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "rounded-lg p-2 text-center hover:bg-[#333333] hover:text-gray-50/50",
+              "rounded-lg p-2 text-center hover:bg-[#333333] transition duration-300 hover:ease-in-out hover:text-gray-50/50",
               {
                 "bg-[#33333393]": pathname === link.href,
               }

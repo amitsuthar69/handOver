@@ -1,4 +1,4 @@
-import BottomNav from "../ui/home/BottomNav";
+import BottomNav from "../ui/home/Filter";
 import MiddleNav from "../ui/home/MiddleNav";
 import TopNav from "../ui/home/TopNav";
 
@@ -13,7 +13,9 @@ export default function HomeLayout({
         <TopNav />
       </div>
       <MiddleNav />
-      <BottomNav />
+      {/* <div className="bg-[#1a1a1ae8] sticky top-12 z-10">
+        <BottomNav />
+      </div> */}
       <div className="m-auto">{children}</div>
     </div>
   );

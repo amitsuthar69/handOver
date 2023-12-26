@@ -9,12 +9,12 @@ export default function ItemCardSkeleton() {
         <div className="mx-2 skeleton-line-text" />
       </div>
       <div className="details flex flex-col gap-1 p-2 animate-pulse">
-        <p className="bg-gray-600/50 p-2" />
-        <p className="bg-gray-600/50 p-2" />
+        <p className="bg-gray-600/50 p-2 rounded-md" />
+        <p className="bg-gray-600/50 p-2 rounded-md" />
       </div>
-      <p className="text-xs text-gray-50/40 skeleton-line-text" />
+      <p className="text-xs text-gray-50/40 rounded-md" />
       <button className="bg-gray-500/50 p-2 rounded-lg w-full text-center text-sm rounded-t-none flex items-center justify-center">
-        <p className="bg-gray-50/20 w-3/4 animate-pulse p-2" />
+        <p className="bg-gray-50/20 w-3/4 animate-pulse p-2 rounded-md" />
       </button>
     </div>
   );
