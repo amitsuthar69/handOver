@@ -16,4 +16,5 @@ export type ItemType = {
 export type Category = {
   id: string;
   catName: string;
+  href?: string;
 };

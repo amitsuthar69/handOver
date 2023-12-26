@@ -42,7 +42,7 @@ export default function HandOverForm() {
       setImageUrl(url);
       setPublicId(public_id);
       // console.log(result);
-      console.log("url: ", url);
+      // console.log("url: ", url);
       // console.log("public_id: ", public_id);
     }
   };
@@ -128,22 +128,36 @@ export default function HandOverForm() {
           {imageUrl && (
             <Image
               src={imageUrl && imageUrl}
+              priority={true}
+              placeholder="blur"
+              blurDataURL={imageUrl}
               fill
               className="absolute object-cover inset-0"
               alt={"item-image"}
             />
           )}
         </CldUploadButton>
-        <p className="text-gray-50/50 text-xs -mt-2">
-          *Suggested not to use Potrait images
+        <p className="text-gray-50/50 text-xs flex justify-between items-center -mt-2">
+          *Suggested not to use Potrait images{" "}
+          {publicId && (
+            <button
+              onClick={removeImage}
+              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          )}
         </p>
-        {publicId && (
-          <button
-            onClick={removeImage}
-            className="btn-delete w-fit rounded-md ">
-            Delete Image
-          </button>
-        )}
+
         <button className="btn-cyan -mt-2">
           Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
         </button>

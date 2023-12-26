@@ -2,11 +2,15 @@ import ItemCard from "@/app/ui/ItemCard";
 import { getItems } from "@/app/utils/getItems";
 import { Suspense } from "react";
 import ItemCardSkeleton from "@/app/ui/ItemCardSkeleton";
+import Filter from "@/app/ui/home/Filter";
 
 export default async function Items() {
   const item = await getItems();
   return (
     <div className="bg-[#1a1a1ae8] p-6 min-h-screen">
+      <div className="sticky top-12 -my-6 -mx-6 flex justify-end z-10">
+        <Filter />
+      </div>
       <div className=" grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {item && item.length > 0 ? (
           item.map((post) => (
