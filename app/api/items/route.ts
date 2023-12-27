@@ -25,7 +25,6 @@ export async function POST(req: Request) {
         price,
       },
     });
-    console.log("post created");
     return NextResponse.json(newItem);
   } catch (error) {
     console.log("error creating item: ", error);

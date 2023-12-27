@@ -6,19 +6,15 @@ import ItemCard from "@/app/ui/ItemCard";
 import { ItemType } from "@/types/itemType";
 
 export default async function Inventory() {
-  // route protection
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/signin");
   }
   const email = session.user?.email;
   let items: ItemType[] = [];
-
   if (email) {
     items = await getItemsByUser(email);
   }
-
-  // console.log(items);
 
   return (
     <div className="bg-[#1a1a1ae8] p-4 font-mono min-h-screen">
@@ -34,7 +30,6 @@ export default async function Inventory() {
           </div>
         )}
       </h1>
-      {/* make it "no items" when length 0 */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items &&
           items.map((post: ItemType) => (

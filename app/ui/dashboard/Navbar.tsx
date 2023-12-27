@@ -10,14 +10,14 @@ export default function DashboardNavBar() {
     { name: "exchange", href: "/dashboard/exchange" },
   ];
   return (
-    <div className="dark mt-[102px] grid grid-cols-2 p-1 gap-0.5 items-center font-mono border-b border-t border-gray-50 rounded text-gray-50">
+    <div className="dark mt-[102px] grid grid-cols-2 p-0.5 gap-0.5 items-center font-mono text-gray-50">
       {links.map((link) => {
         return (
           <Link
             key={link.name}
             href={link.href}
             className={clsx(
-              "rounded-lg p-2 text-center hover:bg-[#333333] hover:text-gray-50/50",
+              "p-2 text-center border border-gray-500/50 hover:bg-[#333333] transition duration-300 hover:ease-in-out hover:text-gray-50/50",
               {
                 "bg-[#33333393]": pathname === link.href,
               }

@@ -60,8 +60,3 @@ export default function ProfileCard({ username, phone, email }: any) {
     </div>
   );
 }
-
-/*
-
-
-*/

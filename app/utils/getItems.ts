@@ -50,3 +50,21 @@ const getItemsByCatName = async (catName: string) => {
 };
 
 export { getItemsByCatName };
+
+// fetch item by id
+const getItemById = async (id: string): Promise<ItemType | null> => {
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items/${id}`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const item = await res.json();
+      return item;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+};
+
+export { getItemById };

@@ -1,12 +1,13 @@
 "use client";
 import { Category, ItemType } from "@/types/itemType";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCategories } from "@/app/utils/getCategoriesForItem";
 import { useRouter } from "next/navigation";
 import { updateItems } from "@/app/utils/setItems";
 import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { removeImg } from "@/app/utils/removeImage";
 
 export default function EditItemForm({ item }: { item: ItemType }) {
   const [description, setDescription] = useState("");
@@ -42,14 +43,9 @@ export default function EditItemForm({ item }: { item: ItemType }) {
 
   const removeImage = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const res = await fetch("/api/removeImage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ publicId }),
-      });
-      if (res.ok) {
+      const res = await removeImg(publicId);
+      if (res?.ok) {
         setImageUrl("");
         setPublicId("");
       }
@@ -65,9 +61,6 @@ export default function EditItemForm({ item }: { item: ItemType }) {
       const public_id = info.public_id as string;
       setImageUrl(url);
       setPublicId(public_id);
-      // console.log(result);
-      console.log("url: ", url);
-      // console.log("public_id: ", public_id);
     }
   };
 
@@ -108,9 +101,9 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   };
 
   return (
-    <div className="dark font-mono text-gray-50 h-screen flex flex-col gap-2 p-8">
+    <div className="dark font-mono text-gray-50 h-screen flex flex-col items-center gap-2 p-8">
       <h1 className="text-center mb-4">Edit Item</h1>
-      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleFormSubmit} className="flex flex-col md:w-3/4 gap-4">
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -177,14 +170,27 @@ export default function EditItemForm({ item }: { item: ItemType }) {
             />
           )}
         </CldUploadButton>
-        {publicId && (
-          <button
-            onClick={removeImage}
-            className="btn-delete w-fit rounded-md ">
-            Delete Image
-          </button>
-        )}
-        <button className="btn-cyan">
+        <p className="text-gray-50/50 text-xs flex justify-between items-center -mt-2">
+          *Suggested not to use Potrait images{" "}
+          {publicId && (
+            <button
+              onClick={removeImage}
+              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          )}
+        </p>
+        <button className="btn-cyan -mt-2">
           {selectedCategory === "sell" ? "sell" : "Exchange"} it!
         </button>
       </form>

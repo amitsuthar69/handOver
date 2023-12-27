@@ -4,12 +4,10 @@ import { authOptions } from "@/app/utils/authOptions";
 import { redirect } from "next/navigation";
 
 export default async function Exchnage() {
-  // route protection
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/signin");
   }
-  // console.log(session); //verifying session
   return (
     <div>
       <HandOverForm />

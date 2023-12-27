@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { deleteItem } from "../utils/deleteItem";
 import toast from "react-hot-toast";
+import { removeImg } from "@/app/utils/removeImage";
 
 export default function EditDeleteButton({ id }: { id: string }) {
   const router = useRouter();
@@ -28,11 +29,7 @@ export default function EditDeleteButton({ id }: { id: string }) {
 
   const deleteImage = async (publicId: string) => {
     try {
-      const res = await fetch("/api/removeImage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ publicId }),
-      });
+      const res = await removeImg(publicId);
     } catch (error) {
       console.log("error in frontend: ", error);
     }

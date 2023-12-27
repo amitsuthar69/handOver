@@ -13,9 +13,6 @@ export default function HomeLayout({
         <TopNav />
       </div>
       <MiddleNav />
-      {/* <div className="bg-[#1a1a1ae8] sticky top-12 z-10">
-        <BottomNav />
-      </div> */}
       <div className="m-auto">{children}</div>
     </div>
   );

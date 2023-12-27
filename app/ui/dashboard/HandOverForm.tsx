@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import setItems from "@/app/utils/setItems";
 import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { removeImg } from "@/app/utils/removeImage";
+
 
 export default function HandOverForm() {
   const [description, setDescription] = useState("");
@@ -18,14 +20,9 @@ export default function HandOverForm() {
 
   const removeImage = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const res = await fetch("/api/removeImage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ publicId }),
-      });
-      if (res.ok) {
+      const res = await removeImg(publicId);
+      if (res?.ok) {
         setImageUrl("");
         setPublicId("");
       }
@@ -41,9 +38,6 @@ export default function HandOverForm() {
       const public_id = info.public_id as string;
       setImageUrl(url);
       setPublicId(public_id);
-      // console.log(result);
-      // console.log("url: ", url);
-      // console.log("public_id: ", public_id);
     }
   };
 
@@ -157,7 +151,6 @@ export default function HandOverForm() {
             </button>
           )}
         </p>
-
         <button className="btn-cyan -mt-2">
           Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
         </button>
