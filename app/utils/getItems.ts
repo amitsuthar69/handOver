@@ -4,9 +4,7 @@ import { ItemType } from "@/types/itemType";
 const getItems = async (): Promise<ItemType[] | null> => {
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`, {
-      next: {
-        revalidate: 60, // Revalidate every 1 minute (1 * 60 seconds)
-      },
+      cache: "no-store",
     });
 
     if (res.ok) {
@@ -41,11 +39,7 @@ const getItemsByCatName = async (catName: string) => {
   try {
     const res = await fetch(
       `${process.env.NEXTAUTH_URL}/api/categories/${catName}`,
-      {
-        next: {
-          revalidate: 60, // Revalidate every 1 minute (1 * 60 seconds)
-        },
-      }
+      { cache: "no-store" }
     );
     const { items } = await res.json();
     return items;
