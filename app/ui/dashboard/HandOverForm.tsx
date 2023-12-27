@@ -72,9 +72,9 @@ export default function HandOverForm() {
   };
 
   return (
-    <div className="dark font-mono text-gray-50 h-screen flex flex-col gap-2 p-8">
-      <h1 className="text-center mb-4">What you got to exchange?</h1>
-      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+    <div className="dark font-mono text-gray-50 h-screen flex flex-col items-center gap-2 p-8">
+      <h1 className="text-center -mt-4 mb-4">What you got to exchange?</h1>
+      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 md:w-3/4 justify-center">
         <textarea
           onChange={(e) => setDescription(e.target.value)}
           maxLength={100}
