@@ -8,7 +8,7 @@ export default function Filter() {
   const categories: Category[] = [
     { id: "All Items", catName: "All Items", href: "/home/items" },
     { id: "exchange", catName: "exchange", href: "/home/items/exchange" },
-    { id: "sell", catName: "sell", href: "/home/items/sell" },
+    { id: "sell", catName: "sale", href: "/home/items/sell" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);

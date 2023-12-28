@@ -33,7 +33,7 @@ export default function ProfileCard({ username, phone, email }: any) {
         <h1 className="phone text-gray-50/50">
           {phone ? phone : "phone number"}
         </h1>
-        <h1 className="text-red-400 text-sm">
+        <h1 className="text-red-500 text-sm">
           {phone ? "" : "please add phone number!"}
         </h1>
         {status === "authenticated" && (

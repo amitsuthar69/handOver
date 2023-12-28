@@ -18,9 +18,13 @@ export default async function ItemCard({
   const session = await getServerSession(authOptions);
 
   const mood =
-    catName === "sell" ? "purchase this item from" : "exchange this item with";
+    catName === "sell"
+      ? `purchase this ${description} from`
+      : `exchange this ${description} with`;
 
-  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20a%20user%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
+  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20${
+    session ? session?.user?.name : "User"
+  }%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
 
   const dateObjbect = new Date(createdAt);
   const options: Intl.DateTimeFormatOptions = {

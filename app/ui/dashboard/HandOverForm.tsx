@@ -68,7 +68,7 @@ export default function HandOverForm() {
   return (
     <div className="dark font-mono text-gray-50 h-screen flex flex-col items-center gap-2 p-8">
       <h1 className="text-center -mt-4 mb-4">What you got to exchange?</h1>
-      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 md:w-3/4 justify-center">
+      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 w-full md:w-3/4 justify-center">
         <textarea
           onChange={(e) => setDescription(e.target.value)}
           maxLength={100}
@@ -131,7 +131,7 @@ export default function HandOverForm() {
             />
           )}
         </CldUploadButton>
-        <p className="text-gray-50/50 text-xs flex justify-between items-center -mt-2">
+        <p className="text-gray-50/60 text-xs flex justify-between items-center -mt-2">
           *Suggested not to use Potrait images{" "}
           {publicId && (
             <button

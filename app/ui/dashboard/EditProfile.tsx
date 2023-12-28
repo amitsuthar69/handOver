@@ -55,6 +55,7 @@ export default function EditProfile({ user }: { user: UserType | null }) {
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          maxLength={10}
           className="edit-form-input"
           placeholder="phone number"
           type="text"

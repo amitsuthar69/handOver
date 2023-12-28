@@ -15,7 +15,15 @@ export default async function ItemByCatName({
   return (
     <div>
       <div className="bg-[#1a1a1ae8] p-6 min-h-screen">
-        <div className="sticky top-12 -my-6 -mx-6 flex justify-end z-10">
+        <div
+          className={`w-fit -mt-4 p-1 text-gray-50 rounded-md text-xs ${
+            catName === "sell"
+              ? "bg-red-400/50 border border-red-500"
+              : "bg-green-400/50 border border-green-500"
+          }`}>
+          {catName === "sell" ? "On Sale" : "On Exchange"}
+        </div>
+        <div className="sticky top-14 -my-6 -mx-6 flex justify-end z-10">
           <Filter />
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
