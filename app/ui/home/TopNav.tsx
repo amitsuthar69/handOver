@@ -16,7 +16,9 @@ export default async function TopNav() {
           src={"/favicon.ico"}
         />
       </div>
-      <Link href={`/dashboard/inventory`}>
+      <Link
+        className="flex items-center justify-center"
+        href={`/dashboard/inventory`}>
         <Image
           className="rounded-full"
           src={
@@ -25,8 +27,8 @@ export default async function TopNav() {
               : "/user-placeholder.png"
           }
           alt="user"
-          width={30}
-          height={30}
+          width={40}
+          height={40}
         />
       </Link>
     </div>

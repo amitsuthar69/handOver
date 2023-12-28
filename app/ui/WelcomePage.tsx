@@ -38,17 +38,11 @@ export default function WelcomePage() {
         <Link
           className="bg-cyan-700 hover:bg-cyan-500 border p-2 rounded-md w-full md:w-1/2 text-center text-sm"
           href={`/home/items`}>
-          Have a sneak peak {">>"}
+          Have a sneak peek {">>"}
         </Link>
       </div>
-      <p className="text-center text-sm">
-        <input
-          className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
-          type="checkbox"
-          name="T&C"
-          required
-        />{" "}
-        Check here to indicate that you have read and agree our{" "}
+      <p className="text-center text-xs">
+        Proceeding ahead indicates that you have read and agree our{" "}
         <Link
           className="links"
           href={
@@ -63,6 +57,14 @@ export default function WelcomePage() {
             "https://github.com/amitsuthar69/handOver/blob/main/docs/Privacy-Policy.md"
           }>
           Privacy Policy
+        </Link>
+      </p>
+      <p className="mt-4 text-sm">
+        Made with ❤️ by{" "}
+        <Link
+          className="font-semibold"
+          href={"https://github.com/amitsuthar69"}>
+          Amit Suthar
         </Link>
       </p>
     </div>
