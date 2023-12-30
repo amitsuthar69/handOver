@@ -14,10 +14,10 @@
     @apply bg-[#2b2b2b];
   }
   .edit-btn {
-    @apply bg-purple-700 hover:bg-purple-500 px-1 rounded-md;
+    @apply bg-purple-700 hover:bg-purple-500 px-1 rounded;
   }
   .log-out-btn {
-    @apply bg-red-700 hover:bg-red-500 px-1 rounded-md;
+    @apply bg-red-700 hover:bg-red-500 px-1 rounded;
   }
   .edit-form-input {
     @apply bg-transparent focus:bg-transparent w-full text-sm outline-none border-b border-gray-50;

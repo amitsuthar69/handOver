@@ -15,13 +15,11 @@ export default function Filter() {
 
   return (
     <div className="flex p-2 justify-end">
-
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-[#1a1a1aee] rounded z-10 flex p-2 font-mono shadow-md text-gray-50">
+        className="bg-[#1a1a1aee] rounded border border-gray-50/30 z-10 flex p-2 font-mono shadow-md text-gray-50">
         <Image src={"/filter.svg"} alt="filter" width={25} height={25} />
       </button>
-
       <button
         className={`absolute top-[52px] w-32 z-10 rounded text-gray-50 font-mono ${
           isOpen ? "" : "hidden"
@@ -40,7 +38,6 @@ export default function Filter() {
           </div>
         </div>
       </button>
-      
     </div>
   );
 }

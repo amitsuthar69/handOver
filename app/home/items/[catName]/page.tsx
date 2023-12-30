@@ -14,9 +14,9 @@ export default async function ItemByCatName({
   const itemsByCatName = await getItemsByCatName(catName);
   return (
     <div>
-      <div className="bg-[#1a1a1ae8] p-6 min-h-screen">
+      <div className="bg-[#1a1a1ae8] mt-14 p-6 min-h-screen">
         <div
-          className={`w-fit -mt-4 p-1 text-gray-50 rounded-md text-xs ${
+          className={`w-fit -mt-4 p-1 text-gray-50 rounded font-mono font-semibold text-xs ${
             catName === "sell"
               ? "bg-red-400/50 border border-red-500"
               : "bg-green-400/50 border border-green-500"

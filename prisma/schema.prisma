@@ -1,5 +1,7 @@
+// commented schema not yet pushed to db
+
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
@@ -45,6 +47,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   items         Item[]
+  // sentRequests     Request[] @relation("SentRequests")
+  // receivedRequests Request[] @relation("ReceivedRequests")
 }
 
 model VerificationToken {
@@ -68,6 +72,8 @@ model Item {
   authorEmail String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  // requests Request[]
+
   @@fulltext([description, price, authorEmail, catName])
 }
 
@@ -77,3 +83,19 @@ model Category {
   items   Item[]
   itemIDs String[] @db.ObjectId
 }
+
+// I dare you implement this Request model to make a request to seller for his item and then makes the wa.me link open for that seller
+
+// model Request {
+//   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+//   senderId   String   @db.ObjectId
+//   receiverId String   @db.ObjectId
+//   itemId     String   @db.ObjectId
+//   status     String   @default("Pending") // "pending", "approved", "denied", etc.
+//   createdAt  DateTime @default(now())
+
+//    Relations with distinct names for clarity:
+//   sender   User @relation(fields: [senderId], references: [id], name: "SentRequests")
+//   receiver User @relation(fields: [receiverId], references: [id], name: "ReceivedRequests")
+//   item     Item @relation(fields: [itemId], references: [id])
+// }
