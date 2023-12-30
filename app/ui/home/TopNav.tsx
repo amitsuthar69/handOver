@@ -8,7 +8,7 @@ export default async function TopNav() {
   return (
     <div className="dark flex p-2 w-full md:px-4 items-center justify-between font-mono text-gray-50 shadow-lg">
       <div className="flex gap-1 items-center">
-        <h1 className="text-center text-md font-bold">handOver</h1>
+        <h1 className="text-center text-lg font-bold">handOver</h1>
         <Image
           width={25}
           height={25}
