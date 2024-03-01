@@ -9,7 +9,7 @@ export default async function Page() {
     redirect("/home/items");
   }
   return (
-    <div className="flex flex-col gap-2 p-4 items-center justify-center font-mono h-screen bg-[#1e1e1e] text-gray-50">
+    <div className="flex flex-col gap-2 items-center justify-center font-mono h-screen bg-[url('/layered-waves-sm.svg')] md:bg-[url('/layered-waves-lg.svg')] bg-no-repeat bg-cover bg-[#001220] text-gray-50">
       <SignIn />
     </div>
   );

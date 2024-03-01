@@ -3,9 +3,9 @@ import Image from "next/legacy/image";
 
 export default function WelcomePage() {
   return (
-    <div className="flex flex-col gap-2 p-4 items-center justify-center font-mono h-screen bg-[#1e1e1e] text-gray-50">
-      <div className="flex gap-2 mb-2 border rounded-xl p-2 items-center justify-center">
-        <h1 className="text-center text-4xl font-bold">handOver</h1>
+    <div className="flex flex-col gap-2 p-4 items-center justify-center font-mono h-screen bg-[url('/layered-waves-sm.svg')] md:bg-[url('/layered-waves-lg.svg')] bg-no-repeat bg-cover bg-[#001220] text-gray-50">
+      <div className="flex gap-2 border mb-2 rounded-xl p-2 items-center justify-center">
+        <h1 className="text-center text-5xl font-bold">handOver</h1>
         <Image
           priority={true}
           width={40}
@@ -14,35 +14,35 @@ export default function WelcomePage() {
           src={"/favicon.ico"}
         />
       </div>
-      <div className="flex flex-col gap-2 text-center text-sm p-2">
-        <p>
+      <div className="flex flex-col gap-2 text-center text-sm">
+        <p className="md:text-lg self-center md:w-2/3">
           <span className="text-green-300">You survived this semester!</span>{" "}
           but you got some books to
           <span className="text-yellow-300"> exchange </span> with other batch
           students?
         </p>
-        <p className="text-lg">
+        <p className="md:text-xl text-lg">
           <span className="text-red-300">handOver </span> welcomes you!
         </p>
-        <p>
+        <p className="md:text-lg">
           Make it <span className="text-green-300"> open </span> for exchange,
           and let us handle the chaos!
         </p>
       </div>
-      <div className="flex flex-col items-center gap-2 w-full p-2">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full p-2">
         <Link
-          className="bg-fuchsia-700 hover:bg-fuchsia-500 border p-2 rounded-md w-full md:w-1/2 text-center text-sm"
+          className="bg-fuchsia-700 hover:bg-fuchsia-500 border p-2 rounded-md w-full md:w-fit text-center text-sm"
           href={`/signin`}>
           Proceed to Sign in {">>"}
         </Link>
         <Link
-          className="bg-cyan-700 hover:bg-cyan-500 border p-2 rounded-md w-full md:w-1/2 text-center text-sm"
+          className="bg-cyan-700 hover:bg-cyan-500 border p-2 rounded-md w-full md:w-fit text-center text-sm"
           href={`/home/items`}>
           Have a sneak peek {">>"}
         </Link>
       </div>
       <p className="text-center text-xs">
-        Proceeding ahead indicates that you have read and agree our{" "}
+        I agree to the{" "}
         <Link
           className="links"
           href={

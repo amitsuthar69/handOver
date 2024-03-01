@@ -8,7 +8,9 @@ export default async function Items() {
   const item = await getItems();
   return (
     <div className="bg-[#1a1a1ae8] mt-12 p-6 min-h-screen">
-      <h1 className="font-mono text-gray-50/50 text-center">latest items</h1>
+      <h1 className="font-mono text-gray-50/50 text-center">
+        latest items in the hood
+      </h1>
       <div className="sticky top-14 -my-6 -mx-6 md:-mx-0 flex justify-end z-10">
         <Filter />
       </div>
