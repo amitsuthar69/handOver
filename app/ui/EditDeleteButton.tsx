@@ -4,12 +4,15 @@ import { useRouter } from "next/navigation";
 import { deleteItem } from "../utils/deleteItem";
 import toast from "react-hot-toast";
 import { removeImg } from "@/app/utils/removeImage";
+import { useState } from "react";
 
 export default function EditDeleteButton({ id }: { id: string }) {
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
   const handleDelete = async () => {
     const confirmed = window.confirm("Are you sure to delete this item?");
     if (confirmed) {
+      setDeleting(true);
       try {
         const res = await deleteItem(id);
         if (res?.ok) {
@@ -21,6 +24,7 @@ export default function EditDeleteButton({ id }: { id: string }) {
           router.refresh();
         }
       } catch (error) {
+        setDeleting(false);
         toast.error("Something went wrong :(");
         console.log("Error deleting post in frontend: ", error);
       }
@@ -41,7 +45,18 @@ export default function EditDeleteButton({ id }: { id: string }) {
         <button>Edit</button>
       </Link>
       <button className="btn-delete" onClick={handleDelete}>
-        Delete
+        {deleting ? (
+          <div className="flex gap-2">
+            <img
+              className="animate-spin w-5"
+              src="/loader.svg"
+              alt="deleting"
+            />
+            <h1>Deleting...</h1>
+          </div>
+        ) : (
+          "Delete"
+        )}
       </button>
     </div>
   );

@@ -1,6 +1,6 @@
 export default function ItemCardSkeleton() {
   return (
-    <div className="dark shadow-md rounded-lg grid grid-cols-1 skeleton-card">
+    <div className="dark h-[320px] shadow-md rounded-lg grid grid-cols-1">
       <div className="thumbnail">
         <div className="w-full h-[170px] animate-pulse bg-gray-600/50 rounded-lg rounded-b-none" />
       </div>

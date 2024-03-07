@@ -32,7 +32,7 @@
     @apply bg-purple-700 hover:bg-purple-500 p-2 rounded-lg w-full text-center text-sm rounded-t-none rounded-r-none rounded-br-none;
   }
   .btn-delete {
-    @apply bg-red-700 hover:bg-red-500 p-2 rounded-lg w-full text-center text-sm rounded-t-none rounded-l-none rounded-bl-none;
+    @apply bg-red-700 hover:bg-red-500 p-2 flex items-center justify-center rounded-lg w-full text-center text-sm rounded-t-none rounded-l-none rounded-bl-none;
   }
   .links {
     @apply text-gray-50 lg:text-blue-400 underline;
