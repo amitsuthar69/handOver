@@ -16,6 +16,7 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   const [price, setPrice] = useState("0");
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -70,8 +71,9 @@ export default function EditItemForm({ item }: { item: ItemType }) {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!description || !imageUrl) {
+      setLoading(false);
       const errorMessage = "Description & Image are necessary";
       toast.error(errorMessage);
       return;
@@ -103,7 +105,10 @@ export default function EditItemForm({ item }: { item: ItemType }) {
   return (
     <div className="dark font-mono text-gray-50 h-screen flex flex-col items-center gap-2 p-8">
       <h1 className="text-center mb-4">Edit Item</h1>
-      <form onSubmit={handleFormSubmit} className="flex flex-col md:w-3/4 gap-4">
+      <form
+        onSubmit={handleFormSubmit}
+        className="flex flex-col md:w-3/4 gap-4"
+      >
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -111,20 +116,23 @@ export default function EditItemForm({ item }: { item: ItemType }) {
           minLength={10}
           className="edit-form-input"
           name="description"
-          placeholder="describle your item... (atleast 10 characters)"></textarea>
+          placeholder="describle your item... (atleast 10 characters)"
+        ></textarea>
         <select
           value={selectedCategory}
           required
           onChange={handleSelectChange}
           className="bg-transparent outline-none border p-2 rounded"
           name="sell or exchange?"
-          id="cars">
+          id="cars"
+        >
           {categories &&
             categories.map((category) => (
               <option
                 className="bg-[#1e1e1ec0]"
                 key={category.id}
-                value={category.catName}>
+                value={category.catName}
+              >
                 {category.catName}
               </option>
             ))}
@@ -145,7 +153,8 @@ export default function EditItemForm({ item }: { item: ItemType }) {
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
           className={`h-24 md:h-48 -mt-2 border border-slate-100/50 border-dotted grid place-items-center bg-slate-100/30 rounded-md relative ${
             imageUrl && "pointer-events-none"
-          }`}>
+          }`}
+        >
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +162,8 @@ export default function EditItemForm({ item }: { item: ItemType }) {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -175,13 +185,15 @@ export default function EditItemForm({ item }: { item: ItemType }) {
           {publicId && (
             <button
               onClick={removeImage}
-              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs">
+              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs"
+            >
               <svg
                 width="20"
                 height="20"
                 viewBox="0 0 24 24"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z"
                   fill="white"
@@ -190,9 +202,20 @@ export default function EditItemForm({ item }: { item: ItemType }) {
             </button>
           )}
         </p>
-        <button className="btn-cyan -mt-2">
-          {selectedCategory === "sell" ? "sell" : "Exchange"} it!
-        </button>
+        {loading ? (
+          <div className="btn-cyan -mt-2 flex items-center justify-center gap-2">
+            <img
+              className="animate-spin w-5"
+              src="/loader.svg"
+              alt="deleting"
+            />
+            <h1>Getting your item ready...</h1>
+          </div>
+        ) : (
+          <button className="btn-cyan -mt-2">
+            {selectedCategory === "sell" ? "sell" : "Exchange"} it!
+          </button>
+        )}
       </form>
     </div>
   );

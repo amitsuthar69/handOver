@@ -5,14 +5,17 @@ import { deleteItem } from "../utils/deleteItem";
 import toast from "react-hot-toast";
 import { removeImg } from "@/app/utils/removeImage";
 import { useState } from "react";
+import Image from "next/legacy/image";
 
 export default function EditDeleteButton({ id }: { id: string }) {
   const [deleting, setDeleting] = useState(false);
+  const [editing, setEditing] = useState(false);
   const router = useRouter();
+
   const handleDelete = async () => {
+    setDeleting(true);
     const confirmed = window.confirm("Are you sure to delete this item?");
     if (confirmed) {
-      setDeleting(true);
       try {
         const res = await deleteItem(id);
         if (res?.ok) {
@@ -22,12 +25,14 @@ export default function EditDeleteButton({ id }: { id: string }) {
           await deleteImage(publicId);
           toast.success("Item Deleted!");
           router.refresh();
+          setDeleting(false);
         }
       } catch (error) {
-        setDeleting(false);
         toast.error("Something went wrong :(");
         console.log("Error deleting post in frontend: ", error);
       }
+    } else {
+      setDeleting(false);
     }
   };
 
@@ -41,13 +46,35 @@ export default function EditDeleteButton({ id }: { id: string }) {
 
   return (
     <div className="rounded-lg w-full text-center text-sm font-semibold rounded-t-none flex items-center justify-evenly">
-      <Link className="btn-edit " href={`/dashboard/edititem/${id}`}>
-        <button>Edit</button>
-      </Link>
+      <button className="btn-edit">
+        <Link
+          onClick={() => setEditing(true)}
+          href={`/dashboard/edititem/${id}`}
+        >
+          {editing ? (
+            <div className="flex items-center justify-center gap-0.5">
+              <Image
+                width={15}
+                height={15}
+                priority={true}
+                className="animate-spin w-5"
+                src="/loader.svg"
+                alt="editing"
+              />
+              <h1>Edit</h1>
+            </div>
+          ) : (
+            "Edit"
+          )}
+        </Link>
+      </button>
       <button className="btn-delete" onClick={handleDelete}>
         {deleting ? (
-          <div className="flex gap-2">
-            <img
+          <div className="flex gap-0.5">
+            <Image
+              width={15}
+              height={15}
+              priority={true}
               className="animate-spin w-5"
               src="/loader.svg"
               alt="deleting"

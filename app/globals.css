@@ -23,7 +23,7 @@
     @apply bg-transparent focus:bg-transparent w-full text-sm outline-none border-b border-gray-50;
   }
   .btn-cyan {
-    @apply bg-cyan-700 hover:bg-cyan-500 p-2 rounded-md w-full text-center text-sm;
+    @apply bg-cyan-600 hover:bg-cyan-700 p-2 rounded-md w-full text-center text-sm;
   }
   .btn-green {
     @apply bg-green-600 hover:bg-green-500 p-2 rounded-lg w-full text-center text-sm;

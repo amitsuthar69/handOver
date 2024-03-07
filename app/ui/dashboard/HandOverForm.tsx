@@ -8,13 +8,13 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { removeImg } from "@/app/utils/removeImage";
 
-
 export default function HandOverForm() {
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("exchange");
   const [price, setPrice] = useState("0");
   const [publicId, setPublicId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -43,7 +43,9 @@ export default function HandOverForm() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     if (!description || !imageUrl) {
+      setLoading(false);
       const errorMessage = "Description & Image are necessary";
       toast.error(errorMessage);
       return;
@@ -61,6 +63,7 @@ export default function HandOverForm() {
         toast
       );
     } catch (error) {
+      setLoading(false);
       console.log("Error handling form submit: ", error);
     }
   };
@@ -68,19 +71,24 @@ export default function HandOverForm() {
   return (
     <div className="dark font-mono text-gray-50 h-screen flex flex-col items-center gap-2 p-8">
       <h1 className="text-center -mt-4 mb-4">What you got to exchange?</h1>
-      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 w-full md:w-3/4 justify-center">
+      <form
+        onSubmit={handleFormSubmit}
+        className="flex flex-col gap-4 w-full md:w-3/4 justify-center"
+      >
         <textarea
           onChange={(e) => setDescription(e.target.value)}
           maxLength={100}
           minLength={10}
           className="edit-form-input"
           name="description"
-          placeholder="describle your item... (atleast 10 characters)"></textarea>
+          placeholder="describle your item... (atleast 10 characters)"
+        ></textarea>
         <select
           required
           onChange={(e) => setSelectedCategory(e.target.value)}
           className="bg-transparent outline-none border p-2 rounded"
-          name="sell or exchange?">
+          name="sell or exchange?"
+        >
           <option className="bg-[#1e1e1ec0]" value={"exchange"}>
             exchange
           </option>
@@ -103,7 +111,8 @@ export default function HandOverForm() {
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
           className={`h-24 md:h-48 -mt-2 border border-slate-100/50 border-dotted grid place-items-center bg-slate-100/30 rounded-md relative ${
             imageUrl && "pointer-events-none"
-          }`}>
+          }`}
+        >
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +120,8 @@ export default function HandOverForm() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -136,13 +146,15 @@ export default function HandOverForm() {
           {publicId && (
             <button
               onClick={removeImage}
-              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs">
+              className="btn-delete w-fit rounded-md bg-red-700 hover:bg-red-500 p-1 text-center text-xs"
+            >
               <svg
                 width="20"
                 height="20"
                 viewBox="0 0 24 24"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4V4zm2 2h6V4H9v2zM6.074 8l.857 12H17.07l.857-12H6.074zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1z"
                   fill="white"
@@ -151,9 +163,20 @@ export default function HandOverForm() {
             </button>
           )}
         </p>
-        <button className="btn-cyan -mt-2">
-          Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
-        </button>
+        {loading ? (
+          <div className="btn-cyan -mt-2 flex items-center justify-center gap-2">
+            <img
+              className="animate-spin w-5"
+              src="/loader.svg"
+              alt="deleting"
+            />
+            <h1>Getting your item ready...</h1>
+          </div>
+        ) : (
+          <button className="btn-cyan -mt-2">
+            Open for {selectedCategory === "sell" ? "sell" : "Exchange"}
+          </button>
+        )}
       </form>
     </div>
   );
