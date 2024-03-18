@@ -38,8 +38,16 @@ export default async function Inventory() {
               id={post.id}
               author={
                 post.author
-                  ? { name: post.author.name, phone: post.author.phone }
-                  : { name: session.user?.name as string, phone: "0" }
+                  ? {
+                      id: post.author.id,
+                      name: post.author.name,
+                      phone: post.author.phone,
+                    }
+                  : {
+                      id: post.author,
+                      name: session.user?.name as string,
+                      phone: "0",
+                    }
               }
               description={post.description}
               price={post.price}
