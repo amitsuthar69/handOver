@@ -33,7 +33,7 @@ export default async function TopNav() {
             width={30}
             height={30}
           />
-          <h1 className="text-xl">{size}</h1>
+          <h1 className="text-xl">{size ? size : 0}</h1>
         </Link>
         <Link
           className="flex items-center justify-center"
