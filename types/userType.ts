@@ -1,4 +1,4 @@
-import { ItemType } from "./itemType";
+import { ItemType, Request } from "./itemType";
 
 export type UserType = {
   id: string;
@@ -8,4 +8,6 @@ export type UserType = {
   emailVerified: string;
   image: string;
   items: ItemType[];
+  sentRequests?: Request[];
+  receivedRequests?: Request[];
 };

@@ -3,6 +3,7 @@ export type ItemType = {
   description: string;
   price?: string;
   author: {
+    id: string,
     name: string;
     phone: string;
   };
@@ -11,10 +12,20 @@ export type ItemType = {
   authorEmail: string;
   createdAt: number;
   catName: string;
+  requests?: Request[];
 };
 
 export type Category = {
   id: string;
   catName: string;
   href?: string;
+};
+
+export type Request = {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  itemId: string;
+  status: string;
+  createdAt: number;
 };

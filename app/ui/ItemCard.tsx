@@ -4,6 +4,8 @@ import { authOptions } from "@/app/utils/authOptions";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import EditDeleteButton from "./EditDeleteButton";
+import RequestButton from "./RequestButton";
+import { getUserByEmail } from "../utils/getUserByEmail";
 
 export default async function ItemCard({
   id,
@@ -16,6 +18,9 @@ export default async function ItemCard({
   catName,
 }: ItemType) {
   const session = await getServerSession(authOptions);
+  const email = session?.user?.email as string;
+  const user = await getUserByEmail(email);
+  const userId = user?.id as string;
 
   const mood =
     catName === "sell"
@@ -53,13 +58,15 @@ export default async function ItemCard({
             catName === "sell"
               ? "bg-red-400/50 border border-red-500"
               : "bg-green-400/50 border border-green-500"
-          }`}>
+          }`}
+        >
           {catName === "sell" ? "sale" : "exchange"}
         </h1>
         <div
           className={`mx-2 ${
             catName === "sell" ? "text-green-400" : "text-gray-50/50"
-          } `}>
+          } `}
+        >
           ₹{catName === "sell" ? price : "0"}
         </div>
       </div>
@@ -73,18 +80,25 @@ export default async function ItemCard({
       {session && session.user?.name === author.name ? (
         <EditDeleteButton id={id} />
       ) : (
-        <Link href={`${whatsAppLink}`}>
-          <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
-            Talk to the owner
-            <Image
-              width={20}
-              height={20}
-              alt="whatsapp"
-              src={"/whatsapp.svg"}
-            />
-          </button>
-        </Link>
+        <RequestButton senderId={userId} receiverId={author.id} itemId={id} />
       )}
     </div>
+  );
+}
+
+function WhatsAppButton({ whatsAppLink }: any) {
+  return (
+    <Link href={`${whatsAppLink}`}>
+      <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
+        Talk to the owner
+        <Image
+          priority={true}
+          width={20}
+          height={20}
+          alt="whatsapp"
+          src={"/whatsapp.svg"}
+        />
+      </button>
+    </Link>
   );
 }
