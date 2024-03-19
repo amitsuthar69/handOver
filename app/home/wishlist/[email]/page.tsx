@@ -6,19 +6,20 @@ import { authOptions } from "@/app/utils/authOptions";
 import { getWishlistItems } from "@/app/utils/getItems";
 import { redirect } from "next/navigation";
 
-export default async function Wishlist({ params }: { params: { email: string } }) {
-
-  const session = await getServerSession(authOptions)
-  const userEmail = session?.user?.email
-
-  const email = decodeURIComponent(params.email)
+export default async function Wishlist({
+  params,
+}: {
+  params: { email: string };
+}) {
+  const session = await getServerSession(authOptions);
+  const email = decodeURIComponent(params.email);
   const items = await getWishlistItems(email);
 
-  if (email !== userEmail) {
-    redirect("/home/items") 
+  if (!session) {
+    redirect("/signin");
   }
 
-    return (
+  return (
     <div className="bg-[#1a1a1ae8] mt-12 p-6 min-h-screen">
       <h1 className="font-mono text-gray-50/50 text-center">
         Your wishlist items...
@@ -30,7 +31,11 @@ export default async function Wishlist({ params }: { params: { email: string } }
               <ItemCard
                 key={item.id}
                 id={item.id}
-                author={{ id: item.author.id, name: item.author.name, phone: item.author.phone }}
+                author={{
+                  id: item.author.id,
+                  name: item.author.name,
+                  phone: item.author.phone,
+                }}
                 description={item.description}
                 price={item.price}
                 imageUrl={item.imageUrl}
@@ -41,8 +46,10 @@ export default async function Wishlist({ params }: { params: { email: string } }
             </Suspense>
           ))
         ) : (
-          // TODO center this 
-          <div className="text-gray-50 flex w-full h-full">No Requests sent yet!</div>
+          // TODO center this
+          <h1 className="font-mono text-gray-50/50 text-center">
+            No Requests sent yet...
+          </h1>
         )}
       </div>
     </div>
