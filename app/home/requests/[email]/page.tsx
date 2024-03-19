@@ -30,11 +30,13 @@ export default async function Wishlist({
       )}
       <div className="grid lg:grid-cols-2 gap-4 p-2 md:p-4">
         {requests?.map((req) => (
-          <RequestCard
-            senderId={req.senderId}
-            itemId={req.itemId}
-            status={req.status}
-          />
+          <div key={req.id}>
+            <RequestCard
+              senderId={req.senderId}
+              itemId={req.itemId}
+              status={req.status}
+            />
+          </div>
         ))}
       </div>
     </div>
