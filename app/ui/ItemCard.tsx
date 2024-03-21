@@ -1,11 +1,10 @@
 import { ItemType } from "@/types/itemType";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/utils/authOptions";
+import { getUserByEmail } from "../utils/getUserByEmail";
 import Image from "next/legacy/image";
-import Link from "next/link";
 import EditDeleteButton from "./EditDeleteButton";
 import RequestButton from "./RequestButton";
-import { getUserByEmail } from "../utils/getUserByEmail";
 
 export default async function ItemCard({
   id,
@@ -27,7 +26,7 @@ export default async function ItemCard({
       ? `purchase this ${description} from`
       : `exchange this ${description} with`;
 
-  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20${
+  const whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20${
     session ? session?.user?.name : "User"
   }%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
 
@@ -80,25 +79,8 @@ export default async function ItemCard({
       {session && session.user?.name === author.name ? (
         <EditDeleteButton id={id} />
       ) : (
-        <RequestButton senderId={userId} receiverId={author.id} itemId={id} />
+        <RequestButton senderId={userId} receiverId={author.id} itemId={id} url={whatsAppLink} />
       )}
     </div>
-  );
-}
-
-function WhatsAppButton({ whatsAppLink }: any) {
-  return (
-    <Link href={`${whatsAppLink}`}>
-      <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
-        Talk to the owner
-        <Image
-          priority={true}
-          width={20}
-          height={20}
-          alt="whatsapp"
-          src={"/whatsapp.svg"}
-        />
-      </button>
-    </Link>
   );
 }

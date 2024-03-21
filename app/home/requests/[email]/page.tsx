@@ -32,6 +32,7 @@ export default async function Wishlist({
         {requests?.map((req) => (
           <div key={req.id}>
             <RequestCard
+              requestId={req.id}
               senderId={req.senderId}
               itemId={req.itemId}
               status={req.status}

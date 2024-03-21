@@ -1,6 +1,5 @@
 import prisma from "@/app/utils/prismadb";
 import { NextResponse } from "next/server";
-import { json } from "stream/consumers";
 
 export async function POST(req: Request) {
   const { senderId, receiverId, itemId, status } = await req.json();
