@@ -1,4 +1,6 @@
 import { ItemType } from "@/types/itemType";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./authOptions";
 
 // fetch all items :
 const getItems = async (): Promise<ItemType[] | null> => {
@@ -68,3 +70,45 @@ const getItemById = async (id: string): Promise<ItemType | null> => {
 };
 
 export { getItemById };
+
+const getRequestItemById = async (id: string): Promise<ItemType | null> => {
+  try {
+    const res = await fetch(`/api/items/${id}`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const item = await res.json();
+      return item;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+};
+
+export { getRequestItemById };
+
+const getWishlistItems = async (email: string): Promise<ItemType[] | null> => {
+  try {
+    const session = await getServerSession(authOptions);
+    const userEmail = session?.user?.email as string;
+
+    if (email !== userEmail) {
+      return null;
+    }
+
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/wishlist/${email}`,
+      {
+        cache: "no-store",
+      }
+    );
+    const wishlistItems = await res.json();
+    return wishlistItems;
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+};
+
+export { getWishlistItems };

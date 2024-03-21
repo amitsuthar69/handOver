@@ -1,9 +1,10 @@
 import { ItemType } from "@/types/itemType";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/utils/authOptions";
+import { getUserByEmail } from "../utils/getUserByEmail";
 import Image from "next/legacy/image";
-import Link from "next/link";
 import EditDeleteButton from "./EditDeleteButton";
+import RequestButton from "./RequestButton";
 
 export default async function ItemCard({
   id,
@@ -16,13 +17,16 @@ export default async function ItemCard({
   catName,
 }: ItemType) {
   const session = await getServerSession(authOptions);
+  const email = session?.user?.email as string;
+  const user = await getUserByEmail(email);
+  const userId = user?.id as string;
 
   const mood =
     catName === "sell"
       ? `purchase this ${description} from`
       : `exchange this ${description} with`;
 
-  let whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20${
+  const whatsAppLink = `https://wa.me/${author.phone}?text=Hello%2C%20I%27m%20${
     session ? session?.user?.name : "User"
   }%20from%20handOver%20website%20and%20I%20want%20to%20${mood}%20you%2C%20Is%20It%20still%20Available%3F`;
 
@@ -53,13 +57,15 @@ export default async function ItemCard({
             catName === "sell"
               ? "bg-red-400/50 border border-red-500"
               : "bg-green-400/50 border border-green-500"
-          }`}>
+          }`}
+        >
           {catName === "sell" ? "sale" : "exchange"}
         </h1>
         <div
           className={`mx-2 ${
             catName === "sell" ? "text-green-400" : "text-gray-50/50"
-          } `}>
+          } `}
+        >
           ₹{catName === "sell" ? price : "0"}
         </div>
       </div>
@@ -73,17 +79,7 @@ export default async function ItemCard({
       {session && session.user?.name === author.name ? (
         <EditDeleteButton id={id} />
       ) : (
-        <Link href={`${whatsAppLink}`}>
-          <button className="btn-green font-semibold rounded-t-none flex gap-2 items-center justify-center">
-            Talk to the owner
-            <Image
-              width={20}
-              height={20}
-              alt="whatsapp"
-              src={"/whatsapp.svg"}
-            />
-          </button>
-        </Link>
+        <RequestButton senderId={userId} receiverId={author.id} itemId={id} url={whatsAppLink} />
       )}
     </div>
   );

@@ -21,7 +21,7 @@ export default async function Items() {
               <ItemCard
                 key={post.id}
                 id={post.id}
-                author={{ name: post.author.name, phone: post.author.phone }}
+                author={{ id: post.author.id, name: post.author.name, phone: post.author.phone }}
                 description={post.description}
                 price={post.price}
                 imageUrl={post.imageUrl}

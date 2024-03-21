@@ -20,7 +20,8 @@ export default async function ItemByCatName({
             catName === "sell"
               ? "bg-red-400/50 border border-red-500"
               : "bg-green-400/50 border border-green-500"
-          }`}>
+          }`}
+        >
           {catName === "sell" ? "On Sale" : "On Exchange"}
         </div>
         <div className="sticky top-14 -my-6 -mx-6 flex justify-end z-10">
@@ -33,7 +34,11 @@ export default async function ItemByCatName({
                 <ItemCard
                   key={post.id}
                   id={post.id}
-                  author={{ name: post.author.name, phone: post.author.phone }}
+                  author={{
+                    id: post.author.id,
+                    name: post.author.name,
+                    phone: post.author.phone,
+                  }}
                   description={post.description}
                   price={post.price}
                   imageUrl={post.imageUrl}

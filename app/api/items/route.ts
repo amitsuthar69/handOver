@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     const items = await prisma.item.findMany({
-      include: { author: { select: { name: true, phone: true } } }, // getting author name & phone from User collection
+      include: { author: { select: { id: true, name: true, phone: true } } }, // getting author id, name & phone from User collection
       orderBy: { createdAt: "desc" }, // keeping latest items at top
     });
     return NextResponse.json(items);
