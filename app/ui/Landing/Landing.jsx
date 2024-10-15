@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Header } from "./Header";
 import Slider from "./Slider";
+import Image from "next/image";
 
 export const Landing = () => {
   return (
@@ -25,19 +26,24 @@ export const Landing = () => {
                 className="inline-flex text-lg cursor-pointer gap-2 items-center justify-center w-full px-5 py-3 font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
                 <p>Get Started</p>
-                <img src="arrow-right.svg" alt="arrow" />
+                <Image
+                  width={25}
+                  height={25}
+                  src="/arrow-right.svg"
+                  alt="arrow"
+                />
               </Link>
               <Link
                 href={"/home/items"}
                 className="inline-flex cursor-pointer gap-2 items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-lg font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:w-auto focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 <p>Have a Sneak Peek</p>
-                <img width={20} src="eyes-right.png" alt="eyes" />
+                <Image width={20} height={5} src="/eyes-right.png" alt="eyes" />
               </Link>
             </div>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="items.jpg" alt="hero image" />
+            <Image width={500} height={10} src="/items.jpg" alt="hero image" />
           </div>
         </div>
       </section>
@@ -58,9 +64,9 @@ export const Landing = () => {
             </svg>
             <blockquote>
               <p className="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">
-                "You survived this semester! but you got some books to exchange
+                You survived this semester! but you got some books to exchange
                 with other batch students? Make it open for sale/exchange, an
-                indeed will figure you out!"
+                indeed will figure you out!
               </p>
             </blockquote>
           </figure>
@@ -81,8 +87,10 @@ export const Landing = () => {
               href="#home"
               className="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white"
             >
-              <img
-                src="favicon.ico"
+              <Image
+                width={40}
+                height={10}
+                src="/favicon.ico"
                 className="h-6 mr-3 sm:h-9"
                 alt="handover"
               />
