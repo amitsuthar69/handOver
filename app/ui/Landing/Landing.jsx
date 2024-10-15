@@ -91,7 +91,7 @@ export const Landing = () => {
                 width={40}
                 height={10}
                 src="/favicon.ico"
-                className="h-6 mr-3 sm:h-9"
+                className="h-9 mr-3"
                 alt="handover"
               />
               handOver

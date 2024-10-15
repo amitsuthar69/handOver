@@ -11,7 +11,7 @@ export const Header = () => {
               height={40}
               alt="handOver-logo"
               src={"/favicon.ico"}
-              className="h-6 mr-3 sm:h-9"
+              className="h-9 mr-3"
             />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               handOver
